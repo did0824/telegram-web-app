@@ -21,7 +21,11 @@ const App = () => {
     ];
 
     return (
-        <div className="App" style={{ backgroundColor: theme[1].bg_color, color: theme[1].color }}>
+        <div
+            className="App"
+            // style={{ backgroundColor: theme[1].bg_color, color: theme[1].color }}
+        >
+            {JSON.stringify(theme)}
             <div>
                 <p>
                     {initDataUnsafe?.user?.username ?? initDataUnsafe?.user?.last_name}님의 보유 포인트는 1000pt입니다!
@@ -35,7 +39,7 @@ const App = () => {
                         <img
                             alt="상품"
                             src="https://www.pngmart.com/files/17/Birthday-Gift-Box-PNG-File.png"
-                            width={200}
+                            width={150}
                         />
                     </div>
                 ))}
