@@ -7,8 +7,14 @@ const App = () => {
 
     return (
         <div className="App">
-            <button onClick={() => window.alert(initDataUnsafe)}>initDataUnsafe</button>
-            <button onClick={() => window.alert(theme)}>theme</button>
+            <div>
+                <p>initDataUnsafe</p>
+                <p>{JSON.stringify(initDataUnsafe)}</p>
+            </div>
+            <div>
+                <p>theme</p>
+                <p>{JSON.stringify(theme)}</p>
+            </div>
             <MainButton
                 text="SHOW POPUP"
                 onClick={() => {
