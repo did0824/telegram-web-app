@@ -21,11 +21,7 @@ const App = () => {
     ];
 
     return (
-        <div
-            className="App"
-            // style={{ backgroundColor: theme[1].bg_color, color: theme[1].color }}
-        >
-            {JSON.stringify(theme)}
+        <div className="App" style={{ backgroundColor: theme[1].bg_color, color: theme[1].text_color }}>
             <div>
                 <p>
                     {initDataUnsafe?.user?.username ?? initDataUnsafe?.user?.last_name}님의 보유 포인트는 1000pt입니다!
