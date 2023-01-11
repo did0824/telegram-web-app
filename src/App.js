@@ -4,7 +4,10 @@ import { MainButton, useShowPopup, useThemeParams } from "@vkruglikov/react-tele
 const App = () => {
     const showPopup = useShowPopup();
     const theme = useThemeParams();
-    const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe || {};
+    const initDataUnsafe = useMemo(() => {
+        return window.Telegram.WebApp.initDataUnsafe || {};
+    }, []);
+
     const [optionList, setOptionList] = useState([]);
 
     const canSubmit = useMemo(() => {
@@ -20,37 +23,41 @@ const App = () => {
         { name: "상품6", price: 10 },
     ];
 
+    window.Telegram.WebApp.setBackgroundColor("bg_color");
+
     return (
-        <div className="App" style={{ backgroundColor: theme[1].bg_color, color: theme[1].text_color }}>
-            <div>
+        <>
+            <p>{JSON.stringify(theme)}</p>
+            <div className="App" style={{ backgroundColor: theme[1].bg_color, color: theme[1].text_color }}>
                 <p>
                     {initDataUnsafe?.user?.username ?? initDataUnsafe?.user?.last_name}님의 보유 포인트는 1000pt입니다!
                 </p>
-            </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-                {giftList.map((item, idx) => (
-                    <div key={idx}>
-                        <p>{item.name}</p>
-                        <img
-                            alt="상품"
-                            src="https://www.pngmart.com/files/17/Birthday-Gift-Box-PNG-File.png"
-                            width={150}
-                        />
-                    </div>
-                ))}
-            </div>
+                <div className="grid grid-cols-2 gap-1">
+                    {giftList.map((item, idx) => (
+                        <div className="flex flex-col items-center" key={idx}>
+                            <p>{item.name}</p>
+                            <img
+                                alt="상품"
+                                src="https://www.pngmart.com/files/17/Birthday-Gift-Box-PNG-File.png"
+                                width={150}
+                            />
+                            <p>{new Intl.NumberFormat().format(item.price)}pt</p>
+                        </div>
+                    ))}
+                </div>
 
-            <MainButton
-                text="교환하기"
-                disable={!canSubmit}
-                onClick={() => {
-                    showPopup({
-                        message: "Hello, I'am showPopup handle",
-                    });
-                }}
-            />
-        </div>
+                <MainButton
+                    text="교환하기"
+                    disable={!canSubmit}
+                    onClick={() => {
+                        showPopup({
+                            message: "Hello, I'am showPopup handle",
+                        });
+                    }}
+                />
+            </div>
+        </>
     );
 };
 
